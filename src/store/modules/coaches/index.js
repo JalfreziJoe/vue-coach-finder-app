@@ -6,6 +6,7 @@ export default {
     namespaced: true,
     state() {
         return {
+            lastFetch: null,
             coaches: [
                 {
                     id: 'c1',
@@ -13,7 +14,7 @@ export default {
                     lastName: 'Kenobi',
                     desc: 'Old jedi knight. A General in the Clone wars.',
                     hourlyRate: 150,
-                    expertise: ['lightsabre', 'force ghost', 'lightside'],
+                    expertise: ['lightsabre', 'forceghost', 'lightside'],
                 },
                 {
                     id: 'c2',

@@ -14,6 +14,7 @@ const router = createRouter({
         {
             path: '/coaches/:id',
             component: CoachesDetails,
+            props: true, // this will pass the path dynamic content as a propb. In this case the 'id'
             children: [
                 { path: 'contact', component: CoachesContact }, // /coaches/[coachId]/contact
             ],
