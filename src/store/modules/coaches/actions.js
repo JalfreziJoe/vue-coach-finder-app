@@ -11,8 +11,10 @@ export default {
             hourlyRate: data.rate,
             expertise: data.expertise,
         };
+        const token = context.rootGetters.token;
+        //console.log(context.rootGetters.token);
         try {
-            await axois.put(`coaches/${userId}.json`, {
+            await axois.put(`coaches/${userId}.json?auth=${token}`, {
                 ...newCoach,
             });
         } catch (error) {

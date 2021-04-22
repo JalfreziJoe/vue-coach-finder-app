@@ -20,9 +20,10 @@ export default {
     },
     async getRequests(context) {
         const coachId = context.rootGetters.userId;
+        const token = context.rootGetters.token;
         let res;
         try {
-            res = await axios.get(`requests/${coachId}.json`);
+            res = await axios.get(`requests/${coachId}.json?auth=${token}`);
         } catch (error) {
             throw new Error(error);
         }

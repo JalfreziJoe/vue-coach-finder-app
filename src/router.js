@@ -4,7 +4,10 @@ import CoachesDetails from './pages/coaches/CoachesDetails.vue';
 import CoachesRegistration from './pages/coaches/CoachesRegistration.vue';
 import CoachesContact from './pages/requests/CoachesContact.vue';
 import CoachesRequests from './pages/requests/CoachesRequests.vue';
+import UserAuth from './pages/auth/UserAuth.vue';
 import NotFound from './pages/NotFound.vue';
+
+import store from './store/index.js';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -19,10 +22,21 @@ const router = createRouter({
                 { path: 'contact', component: CoachesContact }, // /coaches/[coachId]/contact
             ],
         },
-        { path: '/register', component: CoachesRegistration },
-        { path: '/requests', component: CoachesRequests },
+        { path: '/register', component: CoachesRegistration, meta: { requiresAuth: true } },
+        { path: '/requests', component: CoachesRequests, meta: { requiresAuth: true } },
+        { path: '/auth', component: UserAuth, meta: { requiresNoAuth: true } },
         { path: '/:notFound(.*)', component: NotFound },
     ],
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
+        next('/auth'); // stopping the route and redirecting to auth
+    } else if (to.meta.requiresNoAuth && store.getters.isAuthenticated) {
+        next('/coaches');
+    } else {
+        next();
+    }
 });
 
 export default router;
